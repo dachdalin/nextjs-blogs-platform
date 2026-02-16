@@ -26,11 +26,16 @@ const socials = [
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 300);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
   }, []);
 
   return (
@@ -163,7 +168,8 @@ export default function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-2 md:flex-row">
           <p className="text-sm">
-            &copy; {new Date().getFullYear()} LinBlog. All rights reserved.
+            &copy; {currentYear || new Date().getFullYear()} LinBlog. All rights
+            reserved.
           </p>
           <p className="text-sm text-gray-500">
             Made with <span className="text-red-500">&#9829;</span> for

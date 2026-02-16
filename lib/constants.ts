@@ -172,45 +172,494 @@ export const FAQ_CONTENT = [
 export const BLOG_POSTS = [
   {
     id: 1,
-    title: "Getting Started with React Hooks",
-    slug: "getting-started-with-react-hooks",
-    excerpt: "Learn how to use React Hooks to manage state and side effects in your functional components.",
-    content: "# Getting Started with React Hooks\n\nReact Hooks allow you to use state and other React features without writing a class. Here's how to get started:\n\n## useState\n\nThe `useState` hook lets you add state to functional components:\n\n```javascript\nimport { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>You clicked {count} times</p>\n      <button onClick={() => setCount(count + 1)}>\n        Click me\n      </button>\n    </div>\n  );\n}\n```\n\n## useEffect\n\nThe `useEffect` hook lets you perform side effects in functional components:\n\n```javascript\nimport { useState, useEffect } from 'react';\n\nfunction Timer() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    const id = setInterval(() => {\n      setCount(count + 1);\n    }, 1000);\n    return () => clearInterval(id);\n  }, [count]);\n\n  return <div>Count: {count}</div>;\n}\n```",
-    author: "Alice Johnson",
-    date: "2023-10-26",
-    category: "Web Development",
-    tags: ["react", "javascript", "frontend"],
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9537aa97?auto=format&fit=crop&w=800&q=80",
-    readingTime: "5 min read",
-    featured: true,
+    slug: "react-hooks-guide",
+    title: "Complete Guide to React Hooks",
+    description:
+      "Master React Hooks with in-depth examples covering useState, useEffect, useContext, and custom hooks.",
+    type: "tutorial",
+    readTime: "12 min read",
+    views: 5230,
+    tags: ["React", "JavaScript", "Hooks"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Feb 10, 2026",
+    createdAt: "Feb 10, 2026",
+    updatedAt: "Feb 10, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "Introduction to React Hooks",
+      },
+      {
+        type: "text",
+        content:
+          "React Hooks revolutionized how we write React components by allowing us to use state and other React features without writing a class. In this comprehensive guide, we'll explore the most important hooks and how to use them effectively.",
+      },
+      {
+        type: "heading",
+        content: "useState Hook",
+      },
+      {
+        type: "text",
+        content:
+          "The useState hook is the most fundamental hook that lets you add state to functional components. It returns an array with two elements: the current state value and a function to update it.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        content: `import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}`,
+      },
+      {
+        type: "heading",
+        content: "useEffect Hook",
+      },
+      {
+        type: "text",
+        content:
+          "The useEffect hook lets you perform side effects in functional components. It serves the same purpose as componentDidMount, componentDidUpdate, and componentWillUnmount combined in class components.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        content: `import { useState, useEffect } from 'react';
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    
+    return () => clearInterval(id);
+  }, []);
+
+  return <div>Count: {count}</div>;
+}`,
+      },
+    ],
   },
   {
     id: 2,
-    title: "Mastering CSS Grid Layout",
-    slug: "mastering-css-grid-layout",
-    excerpt: "A comprehensive guide to CSS Grid Layout for building complex responsive layouts.",
-    content: "# Mastering CSS Grid Layout\n\nCSS Grid Layout is a powerful two-dimensional layout system for the web. Here's how to master it:\n\n## Basic Grid\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-template-rows: 100px 100px;\n  gap: 10px;\n}\n```\n\n## Grid Template Areas\n\n```css\n.container {\n  display: grid;\n  grid-template-areas:\n    'header header header'\n    'main sidebar main'\n    'footer footer footer';\n}\n\n.header { grid-area: header; }\n.main { grid-area: main; }\n.sidebar { grid-area: sidebar; }\n.footer { grid-area: footer; }\n```",
-    author: "Bob Smith",
-    date: "2023-10-25",
-    category: "Web Development",
-    tags: ["css", "frontend", "layout"],
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
-    readingTime: "7 min read",
-    featured: true,
+    slug: "javascript-async-await",
+    title: "Mastering JavaScript: async/await vs Promises",
+    description:
+      "Deep dive into asynchronous JavaScript patterns, comparing promises, async/await, and error handling.",
+    type: "code",
+    readTime: "8 min read",
+    views: 3840,
+    tags: ["JavaScript", "Async"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Feb 8, 2026",
+    createdAt: "Feb 8, 2026",
+    updatedAt: "Feb 8, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "Understanding Asynchronous JavaScript",
+      },
+      {
+        type: "text",
+        content:
+          "Asynchronous programming is essential in JavaScript for handling operations like API calls, file reading, and timers. Let's explore the evolution from callbacks to promises to async/await.",
+      },
+      {
+        type: "heading",
+        content: "Promises",
+      },
+      {
+        type: "text",
+        content:
+          "Promises provide a cleaner way to handle asynchronous operations compared to callbacks. A promise represents a value that may be available now, in the future, or never.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        content: `function fetchUser(id) {
+  return fetch(\`/api/users/\${id}\`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('User:', data);
+      return data;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      throw error;
+    });
+}`,
+      },
+      {
+        type: "heading",
+        content: "async/await",
+      },
+      {
+        type: "text",
+        content:
+          "The async/await syntax makes asynchronous code look and behave more like synchronous code, making it easier to read and maintain.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        content: `async function fetchUser(id) {
+  try {
+    const response = await fetch(\`/api/users/\${id}\`);
+    const data = await response.json();
+    console.log('User:', data);
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}`,
+      },
+    ],
   },
   {
     id: 3,
-    title: "Introduction to Machine Learning",
-    slug: "introduction-to-machine-learning",
-    excerpt: "An overview of machine learning concepts and how to get started with ML projects.",
-    content: "# Introduction to Machine Learning\n\nMachine learning is a subset of AI that enables systems to learn from data and improve over time. Here's an introduction:\n\n## What is Machine Learning?\n\nMachine learning involves training algorithms on data to make predictions or decisions without being explicitly programmed.\n\n## Types of Machine Learning\n\n### Supervised Learning\n\n```python\n# Supervised learning example\nfrom sklearn.linear_model import LinearRegression\n\nX = [[1], [2], [3], [4]]\ny = [2, 4, 6, 8]\n\nmodel = LinearRegression()\nmodel.fit(X, y)\n\nprint(model.predict([[5]]))  # Output: [10]\n```\n\n### Unsupervised Learning\n\n```python\n# Unsupervised learning example\nfrom sklearn.cluster import KMeans\n\nX = [[1, 2], [1.5, 1.8], [5, 8], [8, 8], [1, 0.6], [9, 11]]\n\nkmeans = KMeans(n_clusters=2)\nkmeans.fit(X)\n\nprint(kmeans.labels_)  # Output: [0, 0, 1, 1, 0, 1]\n```",
-    author: "Charlie Brown",
-    date: "2023-10-24",
-    category: "Machine Learning",
-    tags: ["machine-learning", "python", "data-science"],
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
-    readingTime: "8 min read",
-    featured: true,
+    slug: "tailwind-css-responsive",
+    title: "Responsive Design with Tailwind CSS",
+    description:
+      "Build responsive layouts using Tailwind's powerful utility-first approach and breakpoint system.",
+    type: "tutorial",
+    readTime: "10 min read",
+    views: 4120,
+    tags: ["Tailwind", "CSS", "Responsive"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Feb 5, 2026",
+    createdAt: "Feb 5, 2026",
+    updatedAt: "Feb 5, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "Introduction to Tailwind CSS",
+      },
+      {
+        type: "text",
+        content:
+          "Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs. Its responsive design system makes it easy to create layouts that work on all screen sizes.",
+      },
+      {
+        type: "heading",
+        content: "Responsive Breakpoints",
+      },
+      {
+        type: "text",
+        content:
+          "Tailwind uses a mobile-first breakpoint system. You can prefix any utility class with a breakpoint name to apply it only at that screen size and above.",
+      },
+      {
+        type: "code",
+        language: "html",
+        content: `<!-- Mobile: stack vertically, Desktop: 3 columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="bg-blue-500 p-4">Item 1</div>
+  <div class="bg-green-500 p-4">Item 2</div>
+  <div class="bg-purple-500 p-4">Item 3</div>
+</div>`,
+      },
+      {
+        type: "heading",
+        content: "Responsive Typography",
+      },
+      {
+        type: "text",
+        content:
+          "You can also make typography responsive by using breakpoint prefixes with text size utilities.",
+      },
+      {
+        type: "code",
+        language: "html",
+        content: `<h1 class="text-2xl md:text-4xl lg:text-6xl font-bold">
+  Responsive Heading
+</h1>
+
+<p class="text-sm md:text-base lg:text-lg">
+  This paragraph adjusts its size based on screen width.
+</p>`,
+      },
+    ],
+  },
+  {
+    id: 4,
+    slug: "nextjs-dynamic-routes",
+    title: "Dynamic Routes in Next.js 15",
+    description:
+      "Learn how to create flexible dynamic routes in Next.js with the App Router and practical examples.",
+    type: "code",
+    readTime: "9 min read",
+    views: 2930,
+    tags: ["Next.js", "Routing"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Feb 3, 2026",
+    createdAt: "Feb 3, 2026",
+    updatedAt: "Feb 3, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "Understanding Dynamic Routes",
+      },
+      {
+        type: "text",
+        content:
+          "Dynamic routes in Next.js allow you to create pages with URLs that include dynamic segments. This is perfect for blog posts, product pages, user profiles, and more.",
+      },
+      {
+        type: "heading",
+        content: "Creating a Dynamic Route",
+      },
+      {
+        type: "text",
+        content:
+          "In the App Router, you create dynamic routes by wrapping a folder name in square brackets. For example, [slug] creates a dynamic segment.",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `// app/blog/[slug]/page.tsx
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  return (
+    <div>
+      <h1>Blog Post: {params.slug}</h1>
+    </div>
+  );
+}`,
+      },
+      {
+        type: "heading",
+        content: "Generating Static Params",
+      },
+      {
+        type: "text",
+        content:
+          "For static site generation, you can use generateStaticParams to pre-render pages at build time.",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `export async function generateStaticParams() {
+  const posts = await getPosts();
+  
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function Page({ params }: { params: { slug: string } }) {
+  const post = await getPost(params.slug);
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <div>{post.content}</div>
+    </article>
+  );
+}`,
+      },
+    ],
+  },
+  {
+    id: 5,
+    slug: "typescript-generics",
+    title: "TypeScript Generics Explained",
+    description:
+      "Understand TypeScript generics with real-world examples and best practices for type safety.",
+    type: "tutorial",
+    readTime: "11 min read",
+    views: 4560,
+    tags: ["TypeScript", "Advanced"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Jan 28, 2026",
+    createdAt: "Jan 28, 2026",
+    updatedAt: "Jan 28, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "What are Generics?",
+      },
+      {
+        type: "text",
+        content:
+          "Generics provide a way to create reusable components that work with multiple types while maintaining type safety. They allow you to write flexible, type-safe code without sacrificing the benefits of TypeScript's type system.",
+      },
+      {
+        type: "heading",
+        content: "Basic Generic Function",
+      },
+      {
+        type: "text",
+        content:
+          "Here's a simple example of a generic function that works with any type:",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `function identity<T>(arg: T): T {
+  return arg;
+}
+
+// Usage
+const num = identity<number>(42);
+const str = identity<string>("hello");
+const obj = identity({ name: "John" });`,
+      },
+      {
+        type: "heading",
+        content: "Generic Interfaces",
+      },
+      {
+        type: "text",
+        content:
+          "You can also use generics with interfaces to create flexible data structures:",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const userResponse: ApiResponse<User> = {
+  data: { id: 1, name: "John", email: "john@example.com" },
+  status: 200,
+  message: "Success"
+};`,
+      },
+    ],
+  },
+  {
+    id: 6,
+    slug: "state-management-redux",
+    title: "State Management with Redux Toolkit",
+    description:
+      "Modern state management patterns using Redux Toolkit with practical examples and best practices.",
+    type: "tutorial",
+    readTime: "13 min read",
+    views: 3450,
+    tags: ["Redux", "State Management"],
+    author: { 
+      name: "Dach Dalin", 
+      avatar: "DD",
+      bio: "Full-stack developer passionate about modern web technologies"
+    },
+    date: "Jan 25, 2026",
+    createdAt: "Jan 25, 2026",
+    updatedAt: "Jan 25, 2026",
+    content: [
+      {
+        type: "heading",
+        content: "Why Redux Toolkit?",
+      },
+      {
+        type: "text",
+        content:
+          "Redux Toolkit is the official, opinionated, batteries-included toolset for efficient Redux development. It simplifies store setup, reduces boilerplate, and includes best practices by default.",
+      },
+      {
+        type: "heading",
+        content: "Creating a Slice",
+      },
+      {
+        type: "text",
+        content:
+          "A slice is a collection of Redux reducer logic and actions for a single feature. Here's how to create one:",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface CounterState {
+  value: number;
+}
+
+const initialState: CounterState = {
+  value: 0,
+};
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    incrementByAmount: (state, action: PayloadAction<number>) => {
+      state.value += action.payload;
+    },
+  },
+});
+
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export default counterSlice.reducer;`,
+      },
+      {
+        type: "heading",
+        content: "Configuring the Store",
+      },
+      {
+        type: "text",
+        content:
+          "Setting up the Redux store with Redux Toolkit is straightforward:",
+      },
+      {
+        type: "code",
+        language: "typescript",
+        content: `import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './features/counter/counterSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;`,
+      },
+    ],
   },
 ];
 
