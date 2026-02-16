@@ -4,17 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useMemo } from "react";
 import { BLOG_POSTS } from "@/lib/constants";
+import Pagination from "@/components/blog/Pagination";
+import SkeletonCard from "@/components/blog/SkeletonCard";
 
-/* Sample blog data - replace with real API fetch */
-const samplePosts = BLOG_POSTS;
+const POSTS_PER_PAGE = 9;
 
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("all");
   const [sort, setSort] = useState("latest");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const filteredPosts = useMemo(() => {
-    let result = samplePosts.filter((post) => {
+    let result = BLOG_POSTS.filter((post) => {
       const matchesSearch =
         post.title.toLowerCase().includes(search.toLowerCase()) ||
         post.description.toLowerCase().includes(search.toLowerCase());
@@ -34,16 +37,33 @@ export default function Blog() {
     return result;
   }, [search, type, sort]);
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE,
+  );
+
   const handleReset = () => {
     setSearch("");
     setType("all");
     setSort("latest");
+    setCurrentPage(1);
+  };
+
+  const handleFilterChange = () => {
+    setCurrentPage(1); // Reset to first page when filters change
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-linear-to-br from-indigo-600 to-purple-700 py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-700 py-20">
         <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:40px_40px]" />
 
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
@@ -149,7 +169,10 @@ export default function Blog() {
                   type="search"
                   placeholder="Search articles..."
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    handleFilterChange();
+                  }}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
@@ -177,7 +200,10 @@ export default function Blog() {
                   name="type"
                   title="sort by type"
                   value={type}
-                  onChange={(e) => setType(e.target.value)}
+                  onChange={(e) => {
+                    setType(e.target.value);
+                    handleFilterChange();
+                  }}
                   className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
                   <option value="all">All</option>
@@ -209,7 +235,10 @@ export default function Blog() {
                   name="sort"
                   value={sort}
                   title="sort"
-                  onChange={(e) => setSort(e.target.value)}
+                  onChange={(e) => {
+                    setSort(e.target.value);
+                    handleFilterChange();
+                  }}
                   className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
                   <option value="latest">Latest</option>
@@ -238,7 +267,10 @@ export default function Blog() {
                     Search: {search.substring(0, 20)}
                     <button
                       type="button"
-                      onClick={() => setSearch("")}
+                      onClick={() => {
+                        setSearch("");
+                        handleFilterChange();
+                      }}
                       className="ml-1"
                     >
                       ✕
@@ -250,7 +282,10 @@ export default function Blog() {
                     {type.charAt(0).toUpperCase() + type.slice(1)}
                     <button
                       type="button"
-                      onClick={() => setType("all")}
+                      onClick={() => {
+                        setType("all");
+                        handleFilterChange();
+                      }}
                       className="ml-1"
                     >
                       ✕
@@ -262,7 +297,10 @@ export default function Blog() {
                     {sort.charAt(0).toUpperCase() + sort.slice(1)}
                     <button
                       type="button"
-                      onClick={() => setSort("latest")}
+                      onClick={() => {
+                        setSort("latest");
+                        handleFilterChange();
+                      }}
                       className="ml-1"
                     >
                       ✕
@@ -276,169 +314,196 @@ export default function Blog() {
       </section>
 
       {/* ── Articles Grid ── */}
-      <section className="py-12 bg-gray-50">
+      <section className="bg-gray-50 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {filteredPosts.length > 0 ? (
             <>
-              <div className="mb-10 text-center">
-                <span className="inline-block rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-green-700">
-                  <svg
-                    className="mb-0.5 inline h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M3 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4zM3 10a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6zM14 9a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-2z" />
-                  </svg>{" "}
-                  Featured Articles
-                </span>
-                <h2 className="mt-4 text-3xl font-extrabold text-gray-700">
-                  Latest Development Insights
-                </h2>
-                <p className="mt-2 text-gray-600">
-                  Hand-picked articles to level up your development skills
-                </p>
+              <div className="mb-10 flex items-center justify-between">
+                <div>
+                  <span className="inline-block rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-green-700">
+                    <svg
+                      className="mb-0.5 inline h-4 w-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M3 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4zM3 10a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6zM14 9a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-2z" />
+                    </svg>{" "}
+                    Featured Articles
+                  </span>
+                  <h2 className="mt-4 text-3xl font-extrabold text-gray-700">
+                    Latest Development Insights
+                  </h2>
+                  <p className="mt-2 text-gray-600">
+                    Showing {paginatedPosts.length} of {filteredPosts.length}{" "}
+                    articles
+                  </p>
+                </div>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {filteredPosts.map((post, idx) => (
-                  <article
-                    key={post.id}
-                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg"
-                  >
-                    {/* Image */}
-                    <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
-                      {idx < 3 && (
-                        <span className="absolute left-3 top-3 z-10 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-gray-900">
-                          ⭐ Featured
-                        </span>
-                      )}
-                      <svg
-                        className="h-12 w-12 opacity-40"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1}
-                        stroke="currentColor"
+              {isLoading ? (
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {Array.from({ length: POSTS_PER_PAGE }).map((_, idx) => (
+                    <SkeletonCard key={idx} />
+                  ))}
+                </div>
+              ) : (
+                <>
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {paginatedPosts.map((post, idx) => (
+                      <article
+                        key={post.id}
+                        className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg"
+                        style={{
+                          animation: `fadeInUp 0.5s ease-out ${idx * 0.1}s both`,
+                        }}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                        />
-                      </svg>
-                      <span className="absolute bottom-3 right-3 rounded bg-black/60 px-2.5 py-1 text-xs text-white">
-                        {post.readTime}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-5">
-                      {/* meta */}
-                      <div className="mb-3 flex items-center justify-between">
-                        <span
-                          className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
-                            post.type === "tutorial"
-                              ? "bg-green-600"
-                              : "bg-cyan-600"
-                          }`}
-                        >
-                          {post.type.charAt(0).toUpperCase() +
-                            post.type.slice(1)}
-                        </span>
-                        <span className="text-xs text-gray-400">
-                          {post.views.toLocaleString()} views
-                        </span>
-                      </div>
-
-                      <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="after:absolute after:inset-0"
-                        >
-                          {post.title}
-                        </Link>
-                      </h3>
-
-                      <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-500">
-                        {post.description}
-                      </p>
-
-                      {/* tags */}
-                      <div className="mb-4 flex flex-wrap gap-1.5">
-                        {post.tags.slice(0, 2).map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-xs text-blue-700"
+                        {/* Image */}
+                        <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+                          {idx < 3 && currentPage === 1 && (
+                            <span className="absolute left-3 top-3 z-10 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-gray-900">
+                              ⭐ Featured
+                            </span>
+                          )}
+                          <svg
+                            className="h-12 w-12 opacity-40"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1}
+                            stroke="currentColor"
                           >
-                            #{t}
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                            />
+                          </svg>
+                          <span className="absolute bottom-3 right-3 rounded bg-black/60 px-2.5 py-1 text-xs text-white">
+                            {post.readTime}
                           </span>
-                        ))}
-                        {post.tags.length > 2 && (
-                          <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-0.5 text-xs text-gray-600">
-                            +{post.tags.length - 2}
-                          </span>
-                        )}
-                      </div>
+                        </div>
 
-                      {/* footer */}
-                      <div className="flex items-center justify-between border-t pt-4">
-                        <div className="flex items-center gap-2">
-                          <Image
-                            src={`https://ui-avatars.com/api/?name=${post.author.avatar}&background=6366f1&color=fff&size=32`}
-                            alt={post.author.name}
-                            width={32}
-                            height={32}
-                            className="rounded-full"
-                          />
-                          <div className="text-xs">
-                            <p className="font-medium text-gray-900">
-                              {post.author.name}
-                            </p>
-                            <p className="text-gray-400">{post.date}</p>
+                        <div className="flex flex-1 flex-col p-5">
+                          {/* meta */}
+                          <div className="mb-3 flex items-center justify-between">
+                            <span
+                              className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+                                post.type === "tutorial"
+                                  ? "bg-green-600"
+                                  : "bg-cyan-600"
+                              }`}
+                            >
+                              {post.type.charAt(0).toUpperCase() +
+                                post.type.slice(1)}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {post.views.toLocaleString()} views
+                            </span>
+                          </div>
+
+                          <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 group-hover:text-blue-600">
+                            <Link
+                              href={`/blog/${post.slug}`}
+                              className="after:absolute after:inset-0"
+                            >
+                              {post.title}
+                            </Link>
+                          </h3>
+
+                          <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-500">
+                            {post.description}
+                          </p>
+
+                          {/* tags */}
+                          <div className="mb-4 flex flex-wrap gap-1.5">
+                            {post.tags.slice(0, 2).map((t) => (
+                              <span
+                                key={t}
+                                className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-xs text-blue-700"
+                              >
+                                #{t}
+                              </span>
+                            ))}
+                            {post.tags.length > 2 && (
+                              <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-0.5 text-xs text-gray-600">
+                                +{post.tags.length - 2}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* footer */}
+                          <div className="flex items-center justify-between border-t pt-4">
+                            <div className="flex items-center gap-2">
+                              <Image
+                                src={`https://ui-avatars.com/api/?name=${post.author.avatar}&background=6366f1&color=fff&size=32`}
+                                alt={post.author.name}
+                                width={32}
+                                height={32}
+                                className="rounded-full"
+                              />
+                              <div className="text-xs">
+                                <p className="font-medium text-gray-900">
+                                  {post.author.name}
+                                </p>
+                                <p className="text-gray-400">{post.date}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-1">
+                              <button
+                                title="Bookmark"
+                                className="rounded border border-gray-200 p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-amber-500"
+                              >
+                                <svg
+                                  className="h-4 w-4"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M17.593 2.206a.75.75 0 0 0-1.186 0l-5.084 7.057A4.5 4.5 0 1 0 6.5 19.5a4.5 4.5 0 0 0 6.823-5.236l5.084-7.057z"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                title="Share"
+                                className="rounded border border-gray-200 p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
+                              >
+                                <svg
+                                  className="h-4 w-4"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </div>
                         </div>
+                      </article>
+                    ))}
+                  </div>
 
-                        <div className="flex gap-1">
-                          <button
-                            title="d"
-                            className="rounded border border-gray-200 p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-amber-500"
-                          >
-                            <svg
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M17.593 2.206a.75.75 0 0 0-1.186 0l-5.084 7.057A4.5 4.5 0 1 0 6.5 19.5a4.5 4.5 0 0 0 6.823-5.236l5.084-7.057z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            title="l"
-                            className="rounded border border-gray-200 p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-blue-600"
-                          >
-                            <svg
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185z"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="mt-12">
+                      <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                      />
                     </div>
-                  </article>
-                ))}
-              </div>
+                  )}
+                </>
+              )}
             </>
           ) : (
             <div className="rounded-2xl bg-gray-50 py-16 text-center">
@@ -508,6 +573,20 @@ export default function Blog() {
           )}
         </div>
       </section>
+
+      {/* Add CSS for fade-in animation */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }

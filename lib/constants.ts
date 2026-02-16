@@ -1,6 +1,28 @@
 // how to use this file
 // import {  } from "./constants";
 
+import { ContentBlock } from "./blog-utils";
+
+interface BlogPost {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  type: string;
+  readTime: string;
+  views: number;
+  tags: string[];
+  author: {
+    name: string;
+    avatar: string;
+    bio: string;
+  };
+  date: string;
+  createdAt: string;
+  updatedAt: string;
+  content: ContentBlock[];
+}
+
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
@@ -169,7 +191,7 @@ export const FAQ_CONTENT = [
   },
 ];
 
-export const BLOG_POSTS = [
+export const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
     slug: "react-hooks-guide",
