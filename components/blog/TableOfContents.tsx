@@ -24,7 +24,6 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
       },
     );
 
-    // Observe all heading elements
     items.forEach((item) => {
       const element = document.getElementById(item.id);
       if (element) {
@@ -38,7 +37,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100; // Account for fixed header
+      const offset = 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
 

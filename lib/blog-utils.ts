@@ -23,7 +23,6 @@ export function calculateReadingTime(content: ContentBlock[]): string {
     if (block.type === "text" || block.type === "heading") {
       return count + block.content.split(/\s+/).length;
     }
-    // Code blocks are read slower, count as 50% more time
     if (block.type === "code") {
       return count + Math.floor(block.content.split(/\s+/).length * 1.5);
     }
@@ -43,7 +42,7 @@ export function generateTableOfContents(content: ContentBlock[]): TOCItem[] {
     .map((block, index) => ({
       id: `heading-${index}`,
       content: block.content,
-      level: 2, // All headings are h2 in our current structure
+      level: 2,
     }));
 }
 
@@ -58,7 +57,6 @@ export function getRelatedPosts(
   
   if (!currentPost) return [];
 
-  // Calculate similarity score based on shared tags
   const postsWithScores = BLOG_POSTS
     .filter((post) => post.slug !== currentSlug)
     .map((post) => {

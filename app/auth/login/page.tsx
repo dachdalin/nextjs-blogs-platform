@@ -27,7 +27,6 @@ export default function LoginPage() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear error when user starts typing
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -62,25 +61,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // TODO: Replace with actual authentication API call
-      // Example:
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email: formData.email, password: formData.password }),
-      // });
-
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Simulate successful login
       console.log("Login attempt:", {
         email: formData.email,
         rememberMe: formData.rememberMe,
       });
 
-      // TODO: Handle successful login (e.g., redirect to dashboard)
-      // router.push('/dashboard');
       alert(
         "Login successful! (This is a demo - integrate with your auth system)",
       );
@@ -103,7 +90,6 @@ export default function LoginPage() {
       footerLinkHref="/auth/register"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Error message */}
         {submitError && (
           <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 animate-fade-in">
             <div className="flex items-center gap-2">
@@ -119,7 +105,6 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* Email field */}
         <FormInput
           label="Email Address"
           name="email"
@@ -147,7 +132,6 @@ export default function LoginPage() {
           }
         />
 
-        {/* Password field */}
         <FormInput
           label="Password"
           name="password"
@@ -175,7 +159,6 @@ export default function LoginPage() {
           }
         />
 
-        {/* Remember me & Forgot password */}
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <input
@@ -201,7 +184,6 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        {/* Submit button */}
         <button
           type="submit"
           disabled={loading}
@@ -235,7 +217,6 @@ export default function LoginPage() {
           )}
         </button>
 
-        {/* Social auth */}
         <SocialAuthButtons mode="login" />
       </form>
     </AuthLayout>

@@ -4,21 +4,17 @@ import Link from "next/link";
 import { BLOG_POSTS } from "@/lib/constants";
 
 export default function NotFoundPage() {
-  // Get 3 recent blog posts for suggestions
   const recentPosts = BLOG_POSTS.slice(0, 3);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 px-4 py-12">
       <div className="w-full max-w-4xl animate-fade-in">
-        {/* 404 Animation */}
         <div className="mb-8 text-center">
           <div className="relative inline-block">
-            {/* Animated 404 Text */}
             <h1 className="animate-bounce-slow text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 sm:text-[12rem]">
               404
             </h1>
 
-            {/* Floating Decorative Elements */}
             <div className="absolute -right-8 top-0 h-16 w-16 animate-float rounded-full bg-blue-400 opacity-20 blur-xl"></div>
             <div
               className="absolute -left-8 bottom-0 h-20 w-20 animate-float-delayed rounded-full bg-purple-400 opacity-20 blur-xl"
@@ -27,7 +23,6 @@ export default function NotFoundPage() {
           </div>
         </div>
 
-        {/* Main Content Card */}
         <div className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-2xl">
           <div className="p-8 text-center sm:p-12">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
@@ -38,7 +33,6 @@ export default function NotFoundPage() {
               the digital void. Let's get you back on track.
             </p>
 
-            {/* Primary Actions */}
             <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/"
@@ -81,7 +75,6 @@ export default function NotFoundPage() {
               </Link>
             </div>
 
-            {/* Popular Pages */}
             <div className="mb-10 border-t border-gray-200 pt-8">
               <h3 className="mb-4 text-lg font-semibold text-gray-900">
                 Popular Pages
@@ -118,7 +111,6 @@ export default function NotFoundPage() {
               </div>
             </div>
 
-            {/* Recent Blog Posts */}
             {recentPosts.length > 0 && (
               <div className="border-t border-gray-200 pt-8">
                 <h3 className="mb-6 text-lg font-semibold text-gray-900">
@@ -157,7 +149,6 @@ export default function NotFoundPage() {
           </div>
         </div>
 
-        {/* Footer Help Text */}
         <p className="mt-6 text-center text-sm text-gray-500">
           Still can't find what you're looking for?{" "}
           <Link

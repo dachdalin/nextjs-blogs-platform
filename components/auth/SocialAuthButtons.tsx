@@ -11,10 +11,8 @@ export default function SocialAuthButtons({ mode }: SocialAuthButtonsProps) {
 
   const handleSocialAuth = async (provider: string) => {
     setLoadingProvider(provider);
-    // Simulate loading - replace with actual auth logic
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoadingProvider(null);
-    // TODO: Implement actual social authentication
     console.log(`${mode} with ${provider}`);
   };
 

@@ -57,7 +57,6 @@ export default function FormContact() {
           type: "success",
           message: data.message || "Thank you! We'll be in touch soon.",
         });
-        // Reset form
         setFormData({
           firstName: "",
           lastName: "",
@@ -87,7 +86,6 @@ export default function FormContact() {
   return (
     <section className="bg-gray-50 py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mb-16 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2 text-blue-700">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -105,7 +103,6 @@ export default function FormContact() {
 
         <div className="mx-auto max-w-2xl">
           <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
-            {/* Form Header */}
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-8 text-white">
               <div className="flex gap-4">
                 <div className="text-4xl">✉️</div>
@@ -118,9 +115,7 @@ export default function FormContact() {
               </div>
             </div>
 
-            {/* Form Body */}
             <form onSubmit={handleSubmit} className="space-y-6 p-8 lg:p-10">
-              {/* Success/Error Message */}
               {submitStatus.type && (
                 <div
                   className={`rounded-lg p-4 ${
@@ -160,7 +155,6 @@ export default function FormContact() {
                 </div>
               )}
 
-              {/* Name Row */}
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <label
@@ -200,7 +194,6 @@ export default function FormContact() {
                 </div>
               </div>
 
-              {/* Email & Phone Row */}
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <label
@@ -239,7 +232,6 @@ export default function FormContact() {
                 </div>
               </div>
 
-              {/* Company */}
               <div>
                 <label
                   htmlFor="company"
@@ -258,7 +250,6 @@ export default function FormContact() {
                 />
               </div>
 
-              {/* Subject Selection */}
               <div>
                 <label className="mb-4 block text-sm font-medium text-gray-900">
                   What can we help you with?{" "}
@@ -302,7 +293,6 @@ export default function FormContact() {
                 </div>
               </div>
 
-              {/* Message */}
               <div>
                 <label
                   htmlFor="message"
@@ -323,7 +313,6 @@ export default function FormContact() {
                 />
               </div>
 
-              {/* Submit Button */}
               <div className="space-y-2 pt-4">
                 <button
                   type="submit"

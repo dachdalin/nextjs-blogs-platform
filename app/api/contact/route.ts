@@ -12,28 +12,22 @@ import { ValidationError } from "@/lib/errors/api-errors";
  */
 export async function POST(request: NextRequest) {
   try {
-    // 1. Rate limiting check
     contactRateLimiter.check(request);
 
-    // 2. Parse and validate request body
     const body = await request.json();
     const validatedData = contactFormSchema.parse(body);
 
-    // 3. Additional email validation
     if (isSuspiciousEmail(validatedData.email)) {
       throw new ValidationError(
         "Please use a valid email address. Temporary or disposable email addresses are not allowed."
       );
     }
 
-    // 4. Spam detection
     SpamDetectionService.validateFormData(validatedData);
 
-    // 5. Send emails (with retry logic)
     const emailService = new EmailService();
     await emailService.sendContactEmailsWithRetry(validatedData);
 
-    // 6. Log successful submission (structured logging)
     console.log({
       level: "info",
       message: "Contact form submission processed successfully",
@@ -44,13 +38,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // 7. Return success response
     return successResponse(
       undefined,
       "Thank you for reaching out! We've received your message and will get back to you soon."
     );
   } catch (error) {
-    // Centralized error handling
     console.error({
       level: "error",
       message: "Contact form submission failed",

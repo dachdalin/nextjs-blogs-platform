@@ -7,7 +7,6 @@ export default function CommentSection() {
         Comments <span className="text-gray-400">(3)</span>
       </h3>
 
-      {/* Comment form */}
       <form className="mb-8">
         <div className="mb-4">
           <label
@@ -35,7 +34,6 @@ export default function CommentSection() {
         </div>
       </form>
 
-      {/* Sample comments */}
       <div className="space-y-6">
         {[
           {
@@ -103,7 +101,6 @@ export default function CommentSection() {
         ))}
       </div>
 
-      {/* Load more */}
       <div className="mt-6 text-center">
         <button className="text-sm font-medium text-blue-600 transition hover:text-blue-700">
           Load more comments

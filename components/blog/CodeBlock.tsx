@@ -25,7 +25,6 @@ export default function CodeBlock({
 
   return (
     <div className="group relative my-6 overflow-hidden rounded-lg">
-      {/* Header */}
       <div className="flex items-center justify-between bg-gray-800 px-4 py-2">
         <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
           {language}
@@ -73,7 +72,6 @@ export default function CodeBlock({
         </button>
       </div>
 
-      {/* Code content */}
       <pre className="overflow-x-auto bg-gray-900 p-4 text-sm">
         <code
           className={`language-${language}`}
@@ -86,7 +84,6 @@ export default function CodeBlock({
         </code>
       </pre>
 
-      {/* Copy overlay on hover */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100">
         <div className="absolute right-4 top-4 rounded-lg bg-gray-900/90 px-3 py-1.5 text-xs text-white shadow-lg">
           Click to copy

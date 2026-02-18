@@ -13,7 +13,6 @@ export default function Pagination({
 }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  // Show max 7 page numbers
   const getVisiblePages = () => {
     if (totalPages <= 7) return pages;
 
@@ -43,7 +42,6 @@ export default function Pagination({
       className="flex items-center justify-center gap-2"
       aria-label="Pagination"
     >
-      {/* Previous button */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -65,7 +63,6 @@ export default function Pagination({
         </svg>
       </button>
 
-      {/* Page numbers */}
       {visiblePages.map((page, index) =>
         page === -1 ? (
           <span
@@ -91,7 +88,6 @@ export default function Pagination({
         ),
       )}
 
-      {/* Next button */}
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}

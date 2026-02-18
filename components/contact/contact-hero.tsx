@@ -1,7 +1,6 @@
 export default function ContactHero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-700 py-24 lg:py-32">
-      {/* Grid Background */}
       <div className="absolute inset-0 opacity-10">
         <svg
           className="h-full w-full"
@@ -29,7 +28,6 @@ export default function ContactHero() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-white backdrop-blur">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0 0 16 4H4a2 2 0 0 0-1.997 1.884z" />
@@ -38,13 +36,11 @@ export default function ContactHero() {
             <span className="font-medium">Let's Connect</span>
           </div>
 
-          {/* Main Heading */}
           <h1 className="mb-6 text-5xl font-bold text-white lg:text-6xl">
             Get in <span className="text-amber-300">Touch</span> We'd Love to
             Hear From You
           </h1>
 
-          {/* Subheading */}
           <p className="mb-8 text-xl text-indigo-100 lg:text-2xl">
             Have a project in mind? Need technical support? Or just want to say
             hello?
@@ -53,7 +49,6 @@ export default function ContactHero() {
             your ideas to life.
           </p>
 
-          {/* Quick Features */}
           <div className="flex flex-wrap justify-center gap-6 text-indigo-100 sm:gap-8">
             <div className="flex items-center gap-2">
               <svg
@@ -92,7 +87,6 @@ export default function ContactHero() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <svg
             className="h-6 w-6 text-white"

@@ -40,7 +40,6 @@ export default function RegisterPage() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear error when user starts typing
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -99,22 +98,8 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      // TODO: Replace with actual registration API call
-      // Example:
-      // const response = await fetch('/api/auth/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     fullName: formData.fullName,
-      //     email: formData.email,
-      //     password: formData.password,
-      //   }),
-      // });
-
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Simulate successful registration
       console.log("Registration attempt:", {
         fullName: formData.fullName,
         email: formData.email,
@@ -124,9 +109,7 @@ export default function RegisterPage() {
         "Account created successfully! Redirecting to login...",
       );
 
-      // TODO: Handle successful registration (e.g., redirect to login or auto-login)
       setTimeout(() => {
-        // router.push('/auth/login');
         alert(
           "Registration successful! (This is a demo - integrate with your auth system)",
         );
@@ -150,7 +133,6 @@ export default function RegisterPage() {
       footerLinkHref="/auth/login"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Success message */}
         {successMessage && (
           <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400 animate-fade-in">
             <div className="flex items-center gap-2">
@@ -166,7 +148,6 @@ export default function RegisterPage() {
           </div>
         )}
 
-        {/* Error message */}
         {submitError && (
           <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 animate-fade-in">
             <div className="flex items-center gap-2">
@@ -182,7 +163,6 @@ export default function RegisterPage() {
           </div>
         )}
 
-        {/* Full Name field */}
         <FormInput
           label="Full Name"
           name="fullName"
@@ -210,7 +190,6 @@ export default function RegisterPage() {
           }
         />
 
-        {/* Email field */}
         <FormInput
           label="Email Address"
           name="email"
@@ -238,7 +217,6 @@ export default function RegisterPage() {
           }
         />
 
-        {/* Password field */}
         <div className="space-y-3">
           <FormInput
             label="Password"
@@ -269,7 +247,6 @@ export default function RegisterPage() {
           <PasswordStrengthIndicator password={formData.password} />
         </div>
 
-        {/* Confirm Password field */}
         <FormInput
           label="Confirm Password"
           name="confirmPassword"
@@ -297,7 +274,6 @@ export default function RegisterPage() {
           }
         />
 
-        {/* Terms and conditions */}
         <div className="space-y-2">
           <div className="flex items-start">
             <input
@@ -337,7 +313,6 @@ export default function RegisterPage() {
           )}
         </div>
 
-        {/* Submit button */}
         <button
           type="submit"
           disabled={loading}
@@ -371,7 +346,6 @@ export default function RegisterPage() {
           )}
         </button>
 
-        {/* Social auth */}
         <SocialAuthButtons mode="register" />
       </form>
     </AuthLayout>

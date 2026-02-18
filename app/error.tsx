@@ -13,14 +13,12 @@ export default function ErrorPage({
   const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
-    // Log error to error reporting service
     console.error("Error boundary caught:", error);
   }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 px-4 py-12">
       <div className="w-full max-w-2xl animate-fade-in">
-        {/* Error Icon */}
         <div className="mb-8 flex justify-center">
           <div className="relative">
             <div className="absolute inset-0 animate-ping rounded-full bg-red-400 opacity-20"></div>
@@ -42,7 +40,6 @@ export default function ErrorPage({
           </div>
         </div>
 
-        {/* Main Content Card */}
         <div className="overflow-hidden rounded-2xl border border-red-100 bg-white shadow-xl">
           <div className="p-8 text-center">
             <h1 className="mb-3 text-4xl font-bold text-gray-900">
@@ -53,7 +50,6 @@ export default function ErrorPage({
               notified and we're working on it.
             </p>
 
-            {/* Error Details Toggle */}
             <button
               onClick={() => setShowDetails(!showDetails)}
               className="mb-6 inline-flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-700"
@@ -74,7 +70,6 @@ export default function ErrorPage({
               {showDetails ? "Hide" : "Show"} technical details
             </button>
 
-            {/* Collapsible Error Details */}
             {showDetails && (
               <div className="mb-6 rounded-lg bg-gray-50 p-4 text-left">
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
@@ -91,7 +86,6 @@ export default function ErrorPage({
               </div>
             )}
 
-            {/* Action Buttons */}
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
               <button
                 onClick={reset}
@@ -134,7 +128,6 @@ export default function ErrorPage({
               </Link>
             </div>
 
-            {/* Additional Navigation */}
             <div className="mt-8 border-t border-gray-200 pt-6">
               <p className="mb-4 text-sm text-gray-500">
                 Or explore these sections:
@@ -163,7 +156,6 @@ export default function ErrorPage({
           </div>
         </div>
 
-        {/* Footer Message */}
         <p className="mt-6 text-center text-sm text-gray-500">
           If this problem persists, please{" "}
           <Link
