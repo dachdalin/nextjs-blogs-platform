@@ -1,5 +1,7 @@
 "use client";
 
+import NewsletterForm from "@/components/NewsletterForm";
+
 export default function Newsletter() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-700 py-20">
@@ -31,20 +33,9 @@ export default function Newsletter() {
           trust our content.
         </p>
 
-        <form className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            required
-            className="w-full rounded-lg px-5 py-3 text-gray-900 shadow-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 sm:max-w-md"
-          />
-          <button
-            type="submit"
-            className="rounded-lg bg-amber-400 px-6 py-3 font-bold text-gray-900 shadow-lg transition hover:bg-amber-300"
-          >
-            Subscribe Free
-          </button>
-        </form>
+        <div className="mt-8">
+          <NewsletterForm variant="section" />
+        </div>
 
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
           {["Weekly Tutorials", "Exclusive Content", "No Spam Ever"].map(

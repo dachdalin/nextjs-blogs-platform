@@ -77,3 +77,9 @@ class RateLimiter {
  * 5 requests per minute per IP
  */
 export const contactRateLimiter = new RateLimiter(60000, 5);
+
+/**
+ * Rate limiter instance for newsletter subscribe
+ * 3 requests per minute per IP
+ */
+export const subscribeRateLimiter = new RateLimiter(60000, 3);
